@@ -7,9 +7,8 @@ use serde::Deserialize;
 use std::time::{SystemTime, UNIX_EPOCH};
 
 #[derive(Deserialize, Debug)]
-struct User {
-    login: String,
-    id: u32,
+struct PriceData {
+    prices: Vec<(i64, f32)>
 }
 
 // credits https://stackoverflow.com/a/44378174/2295672
@@ -27,7 +26,7 @@ fn get_unix_time() -> u64 {
 #[tokio::main]
 async fn main() -> Result<(), Error> {
     let unix_time = get_unix_time();
-    println!("{}", unix_time);
+    // println!("{}", unix_time);
     // Ok(())
 
     // set user agent
@@ -44,10 +43,10 @@ async fn main() -> Result<(), Error> {
     println!("{}", request_url);
     let response = client.get(&request_url).send().await?;
 
-    println!("Status: {}", response.status());
-    println!("Status: {:#?}", response.text().await?);
+    // println!("Status: {}", response.status());
+    // println!("Status: {:#?}", response.text().await?);
 
-    // let users: Vec<User> = response.json().await?;
-    // println!("{:?}", users);
+    let prices: PriceData = response.json().await?;
+    println!("{:?}", prices);
     Ok(())
 }
