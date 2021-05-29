@@ -8,7 +8,7 @@ use std::time::{SystemTime, UNIX_EPOCH};
 
 #[derive(Deserialize, Debug)]
 struct PriceData {
-    prices: Vec<(i64, f32)>
+    prices: Vec<(i64, f32)>,
 }
 
 // credits https://stackoverflow.com/a/44378174/2295672
