@@ -9,3 +9,9 @@ cargo build
 # for compiling and running all at once
 cargo run
 ```
+
+Formatting code
+
+```sh
+cargo fmt
+```
