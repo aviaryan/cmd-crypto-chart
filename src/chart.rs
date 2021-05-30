@@ -69,7 +69,7 @@ impl App {
     }
 }
 
-fn main() -> Result<(), Box<dyn Error>> {
+pub fn draw() -> Result<(), Box<dyn Error>> {
     // Terminal initialization
     let stdout = io::stdout().into_raw_mode()?;
     let stdout = MouseTerminal::from(stdout);
