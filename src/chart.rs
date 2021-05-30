@@ -96,7 +96,7 @@ fn get_labels_vector(values: &Vec<String>) -> Vec<Span> {
     return ret;
 }
 
-pub fn draw(prices: bounds::PriceInfo) -> Result<(), Box<dyn Error>> {
+pub fn draw(prices: bounds::PriceInfo, pair: &str) -> Result<(), Box<dyn Error>> {
     // Terminal initialization
     let stdout = io::stdout().into_raw_mode()?;
     let stdout = MouseTerminal::from(stdout);
@@ -233,7 +233,7 @@ pub fn draw(prices: bounds::PriceInfo) -> Result<(), Box<dyn Error>> {
             // f.render_widget(chart, chunks[1]);
 
             let datasets = vec![Dataset::default()
-                .name("bitcoin/usd")
+                .name(pair)
                 .marker(symbols::Marker::Braille)
                 .style(Style::default().fg(Color::Yellow))
                 .graph_type(GraphType::Line)

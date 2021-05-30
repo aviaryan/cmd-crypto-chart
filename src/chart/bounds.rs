@@ -66,11 +66,12 @@ pub fn get_y_labels(prices: &PriceInfo) -> Vec<String> {
 
 	let mut labels: Vec<String> = Vec::new();
 	let mut a = bounds[0];
-	labels.push(a.to_string());
+	labels.push(format!("{:.2}", a));
+	// TODO: fails for coins which are less than 0.01 in price
 
 	for _ in 0..10 {
 		a += step;
-		labels.push(a.to_string());
+		labels.push(format!("{:.2}", a));
 	}
 
 	// println!("{:?}", labels);

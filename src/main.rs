@@ -16,11 +16,13 @@ async fn main() -> Result<(), Error> {
 
     let prices = api::get_prices(coin.to_string()).await?;
     // println!("{:?}", prices);
-    println!("{}", prices.prices.len());
+    // println!("{}", prices.prices.len());
+    let pair = format!("{}/usd", coin);
 
     // https://stackoverflow.com/a/53368681/2295672
     // handle error part of Result
-    match chart::draw(prices.prices) {
+    // TODO: have single structure to store all coin info that is generated from API module
+    match chart::draw(prices.prices, &pair) {
         Err(e) => println!("{:?}", e),
         _ => (),
     }
