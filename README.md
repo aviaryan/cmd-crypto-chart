@@ -1,15 +1,14 @@
 # CMD Crypto Chart
 
-Commandline program to show cryptocurrency charts on demand.
+Commandline program to show cryptocurrency charts on demand. Project created to learn Rust.
 
 ### GIF
 
-![GIF Preview](https://user-images.githubusercontent.com/4047597/120103274-7d6f3180-c16c-11eb-8aaf-eb9e5b1a611e.gif)
+![GIF Preview](https://user-images.githubusercontent.com/4047597/120104224-ff615980-c170-11eb-87bb-42e1f43be5e6.gif)
 
 ### Development
 
 ```sh
-cargo build
 # for compiling and running all at once
 cargo run
 # for formatting code
@@ -19,8 +18,9 @@ cargo fmt
 ### Using
 
 ```sh
-cmd_crypto_chart [coinName]
+cmd_crypto_chart [coin=bitcoin]
 # examples
+cmd_crypto_chart
 cmd_crypto_chart bitcoin
 cmd_crypto_chart ethereum
 ```

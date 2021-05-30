@@ -1,3 +1,4 @@
+// help taken from https://github.com/fdehau/tui-rs/blob/master/examples/chart.rs
 mod bounds;
 #[allow(dead_code)]
 mod event;
