@@ -22,15 +22,15 @@ use tui::{
 };
 
 // const DATA: [(f64, f64); 5] = [(0.0, 0.0), (1.0, 1.0), (2.0, 2.0), (3.0, 3.0), (4.0, 4.0)];
-const DATA2: [(f64, f64); 7] = [
-    (0.0, 0.0),
-    (10.0, 1.0),
-    (20.0, 0.5),
-    (30.0, 1.5),
-    (40.0, 1.0),
-    (50.0, 2.5),
-    (60.0, 3.0),
-];
+// const DATA2: [(f64, f64); 7] = [
+//     (0.0, 0.0),
+//     (10.0, 1.0),
+//     (20.0, 0.5),
+//     (30.0, 1.5),
+//     (40.0, 1.0),
+//     (50.0, 2.5),
+//     (60.0, 3.0),
+// ];
 
 struct App {
     // signal1: SinSignal,
@@ -244,7 +244,7 @@ pub fn draw(prices: bounds::PriceInfo) -> Result<(), Box<dyn Error>> {
             // f.render_widget(chart, chunks[1]);
 
             let datasets = vec![Dataset::default()
-                .name("data")
+                .name("bitcoin/usd")
                 .marker(symbols::Marker::Braille)
                 .style(Style::default().fg(Color::Yellow))
                 .graph_type(GraphType::Line)
@@ -287,7 +287,7 @@ pub fn draw(prices: bounds::PriceInfo) -> Result<(), Box<dyn Error>> {
 
         match events.next()? {
             event::Event::Input(input) => {
-                if input == Key::Char('q') {
+                if input == Key::Char('q') || input == Key::Esc {
                     break;
                 }
             }

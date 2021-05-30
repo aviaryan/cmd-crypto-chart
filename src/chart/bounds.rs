@@ -10,7 +10,7 @@ fn get_x_bounds_u64(prices: &PriceInfo) -> [u64; 2] {
 	let diff = max - min;
 	min = min - diff / 20;
 	max = max + diff / 20;
-	println!("{} {}", min, max);
+	// println!("{} {}", min, max);
 	let ret: [u64; 2] = [min, max];
 
 	return ret;
@@ -40,7 +40,7 @@ fn get_y_bounds_f32(prices: &PriceInfo) -> [f32; 2] {
 	let diff = max - min;
 	min = min - diff / 20.0;
 	max = max + diff / 20.0;
-	println!("{} {}", min, max);
+	// println!("{} {}", min, max);
 	let ret: [f32; 2] = [min, max];
 
 	return ret;
@@ -76,7 +76,7 @@ pub fn get_x_labels(prices: &PriceInfo) -> Vec<String> {
 		labels.push(a.to_string());
 	}
 
-	println!("{:?}", labels);
+	// println!("{:?}", labels);
 	return labels;
 }
 
@@ -94,6 +94,6 @@ pub fn get_y_labels(prices: &PriceInfo) -> Vec<String> {
 		labels.push(a.to_string());
 	}
 
-	println!("{:?}", labels);
+	// println!("{:?}", labels);
 	return labels;
 }
