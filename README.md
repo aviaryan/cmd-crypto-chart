@@ -4,7 +4,7 @@ Commandline program to show cryptocurrency charts on demand.
 
 ### GIF
 
-![GIF Preview](https://user-images.githubusercontent.com/4047597/120102746-27998a00-c16a-11eb-8900-46c616237149.gif)
+![GIF Preview](https://user-images.githubusercontent.com/4047597/120103274-7d6f3180-c16c-11eb-8aaf-eb9e5b1a611e.gif)
 
 ### Development
 
