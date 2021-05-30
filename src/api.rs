@@ -5,7 +5,7 @@ use serde::Deserialize;
 
 #[derive(Deserialize, Debug)]
 pub struct PriceData {
-	pub prices: Vec<(u64, f32)>,
+    pub prices: Vec<(u64, f32)>,
 }
 
 pub async fn get_prices() -> Result<PriceData, Error> {
@@ -32,5 +32,5 @@ pub async fn get_prices() -> Result<PriceData, Error> {
     let prices: PriceData = response.json().await?;
     // println!("{:?}", prices);
     // println!("{}", prices.prices.len());
-	Ok(prices)
+    Ok(prices)
 }

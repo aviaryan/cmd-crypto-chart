@@ -13,7 +13,7 @@ async fn main() -> Result<(), Error> {
     // handle error part of Result
     match chart::draw() {
         Err(e) => println!("{:?}", e),
-        _ => ()
+        _ => (),
     }
 
     Ok(())
