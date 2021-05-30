@@ -8,12 +8,22 @@ Commandline program to show cryptocurrency charts on demand.
 cargo build
 # for compiling and running all at once
 cargo run
-```
-
-Formatting code
-
-```sh
+# for formatting code
 cargo fmt
 ```
 
-For UI use TUI https://github.com/fdehau/tui-rs/blob/master/examples/canvas.rs
+### Using
+
+```sh
+cmd_crypto_chart [coinName]
+# examples
+cmd_crypto_chart bitcoin
+cmd_crypto_chart ethereum
+```
+
+### Distribution
+
+```sh
+cargo build --release
+./target/release/cmd_crypto_chart
+```
