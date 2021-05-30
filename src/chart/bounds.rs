@@ -1,3 +1,5 @@
+use chrono::{NaiveDateTime};
+
 // TODO: have a central type rather than duplicating here and in API
 pub type PriceInfo = Vec<(f64, f64)>;
 
@@ -46,11 +48,11 @@ pub fn get_x_labels(prices: &PriceInfo) -> Vec<String> {
 
 	let mut labels: Vec<String> = Vec::new();
 	let mut a = bounds[0];
-	labels.push(a.to_string());
+	labels.push(get_display_time(a));
 
 	for _ in 0..10 {
 		a += step;
-		labels.push(a.to_string());
+		labels.push(get_display_time(a));
 	}
 
 	// println!("{:?}", labels);
@@ -73,4 +75,18 @@ pub fn get_y_labels(prices: &PriceInfo) -> Vec<String> {
 
 	// println!("{:?}", labels);
 	return labels;
+}
+
+fn get_display_time(ts: f64) -> String {
+	// convert nano seconds to seconds
+	let ts_unix = (ts / 1000.0) as i64;
+	let date_time = NaiveDateTime::from_timestamp(ts_unix, 0);
+    // println!("Date was {}.", date_time);
+	let time = date_time.time();
+	// println!("Time was {}.", time);
+
+	let time_string = time.format("%H:%M").to_string();
+	// println!("Time formatted {}", timeString);
+
+	return time_string;
 }

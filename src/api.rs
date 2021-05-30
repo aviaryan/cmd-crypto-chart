@@ -23,7 +23,7 @@ pub async fn get_prices() -> Result<PriceData, Error> {
         // ^ from current time - 8hr to {NOW}
         to = unix_time / 1000
     );
-    println!("{}", request_url);
+    // println!("{}", request_url);
     let response = client.get(&request_url).send().await?;
 
     // println!("Status: {}", response.status());
