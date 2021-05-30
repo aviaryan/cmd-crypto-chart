@@ -1,6 +1,6 @@
+mod bounds;
 #[allow(dead_code)]
 mod event;
-mod bounds;
 
 use std::{error::Error, io};
 use termion::{event::Key, input::MouseTerminal, raw::IntoRawMode, screen::AlternateScreen};
@@ -26,14 +26,13 @@ fn get_labels_vector(values: &Vec<String>) -> Vec<Span> {
     let mut ret: Vec<Span> = Vec::new();
 
     for (i, ch) in values.iter().enumerate() {
-        if i == 0 || i == length-1 {
-            ret.push(
-                Span::styled(ch, Style::default().add_modifier(Modifier::BOLD))
-            );
+        if i == 0 || i == length - 1 {
+            ret.push(Span::styled(
+                ch,
+                Style::default().add_modifier(Modifier::BOLD),
+            ));
         } else {
-            ret.push(
-                Span::raw(ch)
-            );
+            ret.push(Span::raw(ch));
         }
         // println!("{}: {}", i, ch);
     }
@@ -62,19 +61,11 @@ pub fn draw(prices: bounds::PriceInfo, pair: &str) -> Result<(), Box<dyn Error>>
 
     loop {
         terminal.draw(|f| {
-            let size = f.size();
             let chunks = Layout::default()
                 .direction(Direction::Vertical)
-                .constraints(
-                    [
-                        Constraint::Ratio(1, 1),
-                        // Constraint::Ratio(1, 3),
-                        // Constraint::Ratio(1, 3),
-                    ]
-                    .as_ref(),
-                )
-                .split(size);
-            
+                .constraints([Constraint::Ratio(1, 1)].as_ref())
+                .split(f.size());
+
             let x_labels = get_labels_vector(&x_labels_string);
             let y_labels = get_labels_vector(&y_labels_string);
 
