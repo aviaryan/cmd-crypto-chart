@@ -1,13 +1,6 @@
 #[allow(dead_code)]
-// use crate::util::{
-//     event::{Event, Events},
-//     // SinSignal,
-// };
 mod event;
 mod bounds;
-// use crate::events::{Event, Events};
-// use crate::event::Event;
-// use crate::event::Events;
 
 use std::{error::Error, io};
 use termion::{event::Key, input::MouseTerminal, raw::IntoRawMode, screen::AlternateScreen};
@@ -20,54 +13,6 @@ use tui::{
     widgets::{Axis, Block, Borders, Chart, Dataset, GraphType},
     Terminal,
 };
-
-// const DATA: [(f64, f64); 5] = [(0.0, 0.0), (1.0, 1.0), (2.0, 2.0), (3.0, 3.0), (4.0, 4.0)];
-// const DATA2: [(f64, f64); 7] = [
-//     (0.0, 0.0),
-//     (10.0, 1.0),
-//     (20.0, 0.5),
-//     (30.0, 1.5),
-//     (40.0, 1.0),
-//     (50.0, 2.5),
-//     (60.0, 3.0),
-// ];
-
-struct App {
-    // signal1: SinSignal,
-    // data1: Vec<(f64, f64)>,
-    // signal2: SinSignal,
-    // data2: Vec<(f64, f64)>,
-    window: [f64; 2],
-}
-
-impl App {
-    fn new() -> App {
-        // let mut signal1 = SinSignal::new(0.2, 3.0, 18.0);
-        // let mut signal2 = SinSignal::new(0.1, 2.0, 10.0);
-        // let data1 = signal1.by_ref().take(200).collect::<Vec<(f64, f64)>>();
-        // let data2 = signal2.by_ref().take(200).collect::<Vec<(f64, f64)>>();
-        App {
-            // signal1,
-            // data1,
-            // signal2,
-            // data2,
-            window: [0.0, 20.0],
-        }
-    }
-
-    fn update(&mut self) {
-        // for _ in 0..5 {
-        //     self.data1.remove(0);
-        // }
-        // self.data1.extend(self.signal1.by_ref().take(5));
-        // for _ in 0..10 {
-        //     self.data2.remove(0);
-        // }
-        // self.data2.extend(self.signal2.by_ref().take(10));
-        self.window[0] += 1.0;
-        self.window[1] += 1.0;
-    }
-}
 
 // pub fn calc(prices: bounds::PriceInfo) {
 //     bounds::get_x_bounds(&prices);
@@ -114,9 +59,6 @@ pub fn draw(prices: bounds::PriceInfo, pair: &str) -> Result<(), Box<dyn Error>>
 
     let data = prices;
     // println!("{:?}", data);
-
-    // App
-    let mut app = App::new();
 
     loop {
         terminal.draw(|f| {
@@ -273,7 +215,7 @@ pub fn draw(prices: bounds::PriceInfo, pair: &str) -> Result<(), Box<dyn Error>>
                 }
             }
             event::Event::Tick => {
-                app.update();
+                // do nothing
             }
         }
     }
