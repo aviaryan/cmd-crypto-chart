@@ -7,6 +7,8 @@ use serde::Deserialize;
 pub struct PriceData {
     pub prices: Vec<(u64, f32)>,
 }
+// TODO: fetch both in f32 or f64 to avoid bogus conversion all over the place
+// and reduce number of functions
 
 pub async fn get_prices() -> Result<PriceData, Error> {
     let unix_time = utils::get_unix_time();

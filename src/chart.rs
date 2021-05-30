@@ -4,6 +4,7 @@
 //     // SinSignal,
 // };
 mod event;
+mod bounds;
 // use crate::events::{Event, Events};
 // use crate::event::Event;
 // use crate::event::Events;
@@ -68,7 +69,46 @@ impl App {
     }
 }
 
-pub fn draw() -> Result<(), Box<dyn Error>> {
+pub fn calc(prices: bounds::PriceInfo) {
+    bounds::get_x_bounds(&prices);
+    bounds::get_y_bounds(&prices);
+    bounds::get_x_labels(&prices);
+    bounds::get_y_labels(&prices);
+}
+
+// fn get_labels_vector(values: &Vec<String>) -> Vec<Span<'static>> {
+//     let length = values.len();
+//     let mut ret: Vec<Span> = Vec::new();
+
+//     for (i, ch) in values.iter().enumerate() {
+//         if i == 0 || i == length-1 {
+//             ret.push(
+//                 Span::styled(ch, Style::default().add_modifier(Modifier::BOLD))
+//             );
+//         } else {
+//             ret.push(
+//                 Span::raw(ch)
+//             );
+//         }
+//         // println!("{}: {}", i, ch);
+//     }
+
+//     return ret;
+// }
+
+// fn get_chart_data(prices: &bounds::PriceInfo) -> &[(f64, f64)] {
+fn get_chart_data(prices: &bounds::PriceInfo) -> Vec<(f64, f64)> {
+    let mut vec_in_f64: Vec<(f64, f64)> = Vec::new();
+    for &e in prices {
+        // println!("{}", e);
+        vec_in_f64.push((e.0 as f64, e.1 as f64));
+    }
+    // https://www.reddit.com/r/rust/comments/5k5mez/convert_vecu8_to_u8/
+    // let ret = vec_in_f64.as_slice();
+    return vec_in_f64;
+}
+
+pub fn draw(prices: bounds::PriceInfo) -> Result<(), Box<dyn Error>> {
     // Terminal initialization
     let stdout = io::stdout().into_raw_mode()?;
     let stdout = MouseTerminal::from(stdout);
@@ -77,6 +117,17 @@ pub fn draw() -> Result<(), Box<dyn Error>> {
     let mut terminal = Terminal::new(backend)?;
 
     let events = event::Events::new();
+
+    let x_bounds = bounds::get_x_bounds(&prices);
+    let y_bounds = bounds::get_y_bounds(&prices);
+
+    // let x_labels_string = bounds::get_x_labels(&prices);
+    // let x_labels = get_labels_vector(&x_labels_string);
+    // let y_labels_string = bounds::get_y_labels(&prices);
+    // let y_labels = get_labels_vector(&y_labels_string);
+
+    let data = get_chart_data(&prices);
+    // println!("{:?}", data);
 
     // App
     let mut app = App::new();
@@ -197,12 +248,12 @@ pub fn draw() -> Result<(), Box<dyn Error>> {
                 .marker(symbols::Marker::Braille)
                 .style(Style::default().fg(Color::Yellow))
                 .graph_type(GraphType::Line)
-                .data(&DATA2)];
+                .data(data.as_slice())];
             let chart = Chart::new(datasets)
                 .block(
                     Block::default()
                         .title(Span::styled(
-                            "Chart 3",
+                            "Crypto Chart",
                             Style::default()
                                 .fg(Color::Cyan)
                                 .add_modifier(Modifier::BOLD),
@@ -211,24 +262,24 @@ pub fn draw() -> Result<(), Box<dyn Error>> {
                 )
                 .x_axis(
                     Axis::default()
-                        .title("X Axis")
+                        .title("Time")
                         .style(Style::default().fg(Color::Gray))
-                        .bounds([0.0, 50.0])
+                        .bounds(x_bounds)
                         .labels(vec![
-                            Span::styled("0", Style::default().add_modifier(Modifier::BOLD)),
-                            Span::raw("25"),
-                            Span::styled("50", Style::default().add_modifier(Modifier::BOLD)),
+                            Span::styled(x_bounds[0].to_string(), Style::default().add_modifier(Modifier::BOLD)),
+                            Span::raw("MID"),
+                            Span::styled(x_bounds[1].to_string(), Style::default().add_modifier(Modifier::BOLD)),
                         ]),
                 )
                 .y_axis(
                     Axis::default()
-                        .title("Y Axis")
+                        .title("Price")
                         .style(Style::default().fg(Color::Gray))
-                        .bounds([0.0, 5.0])
+                        .bounds(y_bounds)
                         .labels(vec![
-                            Span::styled("0", Style::default().add_modifier(Modifier::BOLD)),
-                            Span::raw("2.5"),
-                            Span::styled("5", Style::default().add_modifier(Modifier::BOLD)),
+                            Span::styled(y_bounds[0].to_string(), Style::default().add_modifier(Modifier::BOLD)),
+                            Span::raw("MID"),
+                            Span::styled(y_bounds[1].to_string(), Style::default().add_modifier(Modifier::BOLD)),
                         ]),
                 );
             f.render_widget(chart, chunks[0]);
