@@ -76,25 +76,25 @@ pub fn calc(prices: bounds::PriceInfo) {
     bounds::get_y_labels(&prices);
 }
 
-// fn get_labels_vector(values: &Vec<String>) -> Vec<Span<'static>> {
-//     let length = values.len();
-//     let mut ret: Vec<Span> = Vec::new();
+fn get_labels_vector(values: &Vec<String>) -> Vec<Span> {
+    let length = values.len();
+    let mut ret: Vec<Span> = Vec::new();
 
-//     for (i, ch) in values.iter().enumerate() {
-//         if i == 0 || i == length-1 {
-//             ret.push(
-//                 Span::styled(ch, Style::default().add_modifier(Modifier::BOLD))
-//             );
-//         } else {
-//             ret.push(
-//                 Span::raw(ch)
-//             );
-//         }
-//         // println!("{}: {}", i, ch);
-//     }
+    for (i, ch) in values.iter().enumerate() {
+        if i == 0 || i == length-1 {
+            ret.push(
+                Span::styled(ch, Style::default().add_modifier(Modifier::BOLD))
+            );
+        } else {
+            ret.push(
+                Span::raw(ch)
+            );
+        }
+        // println!("{}: {}", i, ch);
+    }
 
-//     return ret;
-// }
+    return ret;
+}
 
 // fn get_chart_data(prices: &bounds::PriceInfo) -> &[(f64, f64)] {
 fn get_chart_data(prices: &bounds::PriceInfo) -> Vec<(f64, f64)> {
@@ -121,10 +121,8 @@ pub fn draw(prices: bounds::PriceInfo) -> Result<(), Box<dyn Error>> {
     let x_bounds = bounds::get_x_bounds(&prices);
     let y_bounds = bounds::get_y_bounds(&prices);
 
-    // let x_labels_string = bounds::get_x_labels(&prices);
-    // let x_labels = get_labels_vector(&x_labels_string);
-    // let y_labels_string = bounds::get_y_labels(&prices);
-    // let y_labels = get_labels_vector(&y_labels_string);
+    let x_labels_string = bounds::get_x_labels(&prices);
+    let y_labels_string = bounds::get_y_labels(&prices);
 
     let data = get_chart_data(&prices);
     // println!("{:?}", data);
@@ -146,6 +144,9 @@ pub fn draw(prices: bounds::PriceInfo) -> Result<(), Box<dyn Error>> {
                     .as_ref(),
                 )
                 .split(size);
+            
+            let x_labels = get_labels_vector(&x_labels_string);
+            let y_labels = get_labels_vector(&y_labels_string);
 
             // let x_labels = vec![
             //     Span::styled(
@@ -265,22 +266,14 @@ pub fn draw(prices: bounds::PriceInfo) -> Result<(), Box<dyn Error>> {
                         .title("Time")
                         .style(Style::default().fg(Color::Gray))
                         .bounds(x_bounds)
-                        .labels(vec![
-                            Span::styled(x_bounds[0].to_string(), Style::default().add_modifier(Modifier::BOLD)),
-                            Span::raw("MID"),
-                            Span::styled(x_bounds[1].to_string(), Style::default().add_modifier(Modifier::BOLD)),
-                        ]),
+                        .labels(x_labels),
                 )
                 .y_axis(
                     Axis::default()
                         .title("Price")
                         .style(Style::default().fg(Color::Gray))
                         .bounds(y_bounds)
-                        .labels(vec![
-                            Span::styled(y_bounds[0].to_string(), Style::default().add_modifier(Modifier::BOLD)),
-                            Span::raw("MID"),
-                            Span::styled(y_bounds[1].to_string(), Style::default().add_modifier(Modifier::BOLD)),
-                        ]),
+                        .labels(y_labels),
                 );
             f.render_widget(chart, chunks[0]);
         })?;
