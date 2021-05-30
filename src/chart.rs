@@ -69,12 +69,12 @@ impl App {
     }
 }
 
-pub fn calc(prices: bounds::PriceInfo) {
-    bounds::get_x_bounds(&prices);
-    bounds::get_y_bounds(&prices);
-    bounds::get_x_labels(&prices);
-    bounds::get_y_labels(&prices);
-}
+// pub fn calc(prices: bounds::PriceInfo) {
+//     bounds::get_x_bounds(&prices);
+//     bounds::get_y_bounds(&prices);
+//     bounds::get_x_labels(&prices);
+//     bounds::get_y_labels(&prices);
+// }
 
 fn get_labels_vector(values: &Vec<String>) -> Vec<Span> {
     let length = values.len();
@@ -101,7 +101,7 @@ fn get_chart_data(prices: &bounds::PriceInfo) -> Vec<(f64, f64)> {
     let mut vec_in_f64: Vec<(f64, f64)> = Vec::new();
     for &e in prices {
         // println!("{}", e);
-        vec_in_f64.push((e.0 as f64, e.1 as f64));
+        vec_in_f64.push((e.0, e.1));
     }
     // https://www.reddit.com/r/rust/comments/5k5mez/convert_vecu8_to_u8/
     // let ret = vec_in_f64.as_slice();
