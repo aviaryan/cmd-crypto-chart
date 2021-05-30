@@ -96,18 +96,6 @@ fn get_labels_vector(values: &Vec<String>) -> Vec<Span> {
     return ret;
 }
 
-// fn get_chart_data(prices: &bounds::PriceInfo) -> &[(f64, f64)] {
-fn get_chart_data(prices: &bounds::PriceInfo) -> Vec<(f64, f64)> {
-    let mut vec_in_f64: Vec<(f64, f64)> = Vec::new();
-    for &e in prices {
-        // println!("{}", e);
-        vec_in_f64.push((e.0, e.1));
-    }
-    // https://www.reddit.com/r/rust/comments/5k5mez/convert_vecu8_to_u8/
-    // let ret = vec_in_f64.as_slice();
-    return vec_in_f64;
-}
-
 pub fn draw(prices: bounds::PriceInfo) -> Result<(), Box<dyn Error>> {
     // Terminal initialization
     let stdout = io::stdout().into_raw_mode()?;
@@ -124,7 +112,7 @@ pub fn draw(prices: bounds::PriceInfo) -> Result<(), Box<dyn Error>> {
     let x_labels_string = bounds::get_x_labels(&prices);
     let y_labels_string = bounds::get_y_labels(&prices);
 
-    let data = get_chart_data(&prices);
+    let data = prices;
     // println!("{:?}", data);
 
     // App
