@@ -8,7 +8,7 @@ pub struct PriceData {
     pub prices: Vec<(f64, f64)>,
 }
 
-pub async fn get_prices() -> Result<PriceData, Error> {
+pub async fn get_prices(coin: String) -> Result<PriceData, Error> {
     let unix_time = utils::get_unix_time();
     // println!("{}", unix_time);
 
@@ -18,7 +18,7 @@ pub async fn get_prices() -> Result<PriceData, Error> {
     // from https://rust-lang-nursery.github.io/rust-cookbook/web/clients/apis.html
     let request_url = format!(
         "https://api.coingecko.com/api/v3/coins/{coin}/market_chart/range?vs_currency=usd&from={from}&to={to}",
-        coin = "bitcoin",
+        coin = coin,
         from = unix_time / 1000 - (24 * 60 * 60),
         // ^ from current time - 8hr to {NOW}
         to = unix_time / 1000

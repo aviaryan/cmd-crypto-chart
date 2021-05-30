@@ -2,10 +2,19 @@ mod api;
 mod chart;
 
 use reqwest::Error;
+use std::env;
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
-    let prices = api::get_prices().await?;
+    // check args for coin name
+    let args: Vec<String> = env::args().collect();
+    let mut coin = "bitcoin";
+    if args.len() > 1 {
+        coin = &args[1];
+    }
+    // println!("{}", coin);
+
+    let prices = api::get_prices(coin.to_string()).await?;
     // println!("{:?}", prices);
     println!("{}", prices.prices.len());
 
