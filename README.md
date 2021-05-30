@@ -15,3 +15,5 @@ Formatting code
 ```sh
 cargo fmt
 ```
+
+For UI use TUI https://github.com/fdehau/tui-rs/blob/master/examples/canvas.rs

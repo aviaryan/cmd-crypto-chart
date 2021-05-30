@@ -25,7 +25,7 @@ async fn main() -> Result<(), Error> {
     let request_url = format!(
         "https://api.coingecko.com/api/v3/coins/{coin}/market_chart/range?vs_currency=usd&from={from}&to={to}",
         coin = "bitcoin",
-        from = unix_time / 1000 - (8 * 60 * 60),
+        from = unix_time / 1000 - (24 * 60 * 60),
         // ^ from current time - 8hr to {NOW}
         to = unix_time / 1000
     );
@@ -37,5 +37,6 @@ async fn main() -> Result<(), Error> {
 
     let prices: PriceData = response.json().await?;
     println!("{:?}", prices);
+    println!("{}", prices.prices.len());
     Ok(())
 }
