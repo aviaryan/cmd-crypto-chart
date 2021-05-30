@@ -11,7 +11,6 @@ pub struct PriceData {
 pub async fn get_prices() -> Result<PriceData, Error> {
     let unix_time = utils::get_unix_time();
     // println!("{}", unix_time);
-    // Ok(())
 
     // set user agent
     let client = reqwest::Client::builder().build()?;
@@ -31,7 +30,7 @@ pub async fn get_prices() -> Result<PriceData, Error> {
     // println!("Status: {:#?}", response.text().await?);
 
     let prices: PriceData = response.json().await?;
-    println!("{:?}", prices);
-    println!("{}", prices.prices.len());
+    // println!("{:?}", prices);
+    // println!("{}", prices.prices.len());
 	Ok(prices)
 }
