@@ -1,12 +1,7 @@
 mod utils;
+use cmd_crypto_chart::types::PriceData;
 
 use reqwest::Error;
-use serde::Deserialize;
-
-#[derive(Deserialize, Debug)]
-pub struct PriceData {
-    pub prices: Vec<(f64, f64)>,
-}
 
 pub async fn get_prices(coin: String) -> Result<PriceData, Error> {
     let unix_time = utils::get_unix_time();

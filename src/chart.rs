@@ -2,6 +2,7 @@
 mod bounds;
 #[allow(dead_code)]
 mod event;
+use cmd_crypto_chart::types::PriceInfo;
 
 use std::{error::Error, io};
 use termion::{event::Key, input::MouseTerminal, raw::IntoRawMode, screen::AlternateScreen};
@@ -15,7 +16,7 @@ use tui::{
     Terminal,
 };
 
-// pub fn calc(prices: bounds::PriceInfo) {
+// pub fn calc(prices: PriceInfo) {
 //     bounds::get_x_bounds(&prices);
 //     bounds::get_y_bounds(&prices);
 //     bounds::get_x_labels(&prices);
@@ -41,7 +42,7 @@ fn get_labels_vector(values: &Vec<String>) -> Vec<Span> {
     return ret;
 }
 
-pub fn draw(prices: bounds::PriceInfo, pair: &str) -> Result<(), Box<dyn Error>> {
+pub fn draw(prices: PriceInfo, pair: &str) -> Result<(), Box<dyn Error>> {
     // Terminal initialization
     let stdout = io::stdout().into_raw_mode()?;
     let stdout = MouseTerminal::from(stdout);

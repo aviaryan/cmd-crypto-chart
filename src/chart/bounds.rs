@@ -1,7 +1,6 @@
 use chrono::NaiveDateTime;
 
-// TODO: have a central type rather than duplicating here and in API
-pub type PriceInfo = Vec<(f64, f64)>;
+use cmd_crypto_chart::types::PriceInfo;
 
 pub fn get_x_bounds(prices: &PriceInfo) -> [f64; 2] {
     // let mut min: u64 = u64::pow(2, 63) - 1;
@@ -79,7 +78,7 @@ pub fn get_y_labels(prices: &PriceInfo) -> Vec<String> {
 }
 
 fn get_display_time(ts: f64) -> String {
-    // convert nano seconds to seconds
+    // convert milliseconds to seconds
     let ts_unix = (ts / 1000.0) as i64;
     let date_time = NaiveDateTime::from_timestamp(ts_unix, 0);
     // println!("Date was {}.", date_time);
