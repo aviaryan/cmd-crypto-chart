@@ -13,6 +13,8 @@ Commandline program to show cryptocurrency charts on demand. Project created to 
 cargo run
 # for formatting code
 cargo fmt
+# cleaning deps and temporary build stuff
+cargo clean
 ```
 
 ### Using

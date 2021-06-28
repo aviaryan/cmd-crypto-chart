@@ -3,8 +3,6 @@ use chrono::NaiveDateTime;
 use cmd_crypto_chart::types::PriceInfo;
 
 pub fn get_x_bounds(prices: &PriceInfo) -> [f64; 2] {
-    // let mut min: u64 = u64::pow(2, 63) - 1;
-    // let mut max: u64 = 0;
     let mut min = prices.first().unwrap().0;
     let mut max = prices.last().unwrap().0;
 
